@@ -1,26 +1,219 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Design tokens
+   Colors use `light-dark()` so they follow the computed `color-scheme`.
+   The theme override is driven by <meta name="color-scheme"> (see layout.tsx
+   and ThemeToggle.tsx), so the site still follows the OS when JS is off.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Raw palette — light */
+  --bg-light: #fafaf9;
+  --surface-light: #ffffff;
+  --surface-muted-light: #f2f2f0;
+  --border-light: #e4e4e0;
+  --border-strong-light: #cfcfc9;
+  --fg-light: #111318;
+  --muted-light: #5b6170;
+  --accent-light: #0f766e;
+  --accent-2-light: #4f46e5;
+  --accent-soft-light: #ccfbf1;
+  --success-light: #15803d;
+  --warning-light: #b45309;
+
+  /* Raw palette — dark */
+  --bg-dark: #0a0b0f;
+  --surface-dark: #12141a;
+  --surface-muted-dark: #1a1d25;
+  --border-dark: #262a35;
+  --border-strong-dark: #363b48;
+  --fg-dark: #ecedf1;
+  --muted-dark: #9097a6;
+  --accent-dark: #5eead4;
+  --accent-2-dark: #818cf8;
+  --accent-soft-dark: #0f2e2b;
+  --success-dark: #4ade80;
+  --warning-dark: #fbbf24;
+
+  /* Fallback for browsers without light-dark() support */
+  --background: var(--bg-light);
+  --surface: var(--surface-light);
+  --surface-muted: var(--surface-muted-light);
+  --border: var(--border-light);
+  --border-strong: var(--border-strong-light);
+  --foreground: var(--fg-light);
+  --muted: var(--muted-light);
+  --accent: var(--accent-light);
+  --accent-2: var(--accent-2-light);
+  --accent-soft: var(--accent-soft-light);
+  --success: var(--success-light);
+  --warning: var(--warning-light);
+
+  @media (prefers-color-scheme: dark) {
+    --background: var(--bg-dark);
+    --surface: var(--surface-dark);
+    --surface-muted: var(--surface-muted-dark);
+    --border: var(--border-dark);
+    --border-strong: var(--border-strong-dark);
+    --foreground: var(--fg-dark);
+    --muted: var(--muted-dark);
+    --accent: var(--accent-dark);
+    --accent-2: var(--accent-2-dark);
+    --accent-soft: var(--accent-soft-dark);
+    --success: var(--success-dark);
+    --warning: var(--warning-dark);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --background: light-dark(var(--bg-light), var(--bg-dark));
+    --surface: light-dark(var(--surface-light), var(--surface-dark));
+    --surface-muted: light-dark(var(--surface-muted-light), var(--surface-muted-dark));
+    --border: light-dark(var(--border-light), var(--border-dark));
+    --border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
+    --foreground: light-dark(var(--fg-light), var(--fg-dark));
+    --muted: light-dark(var(--muted-light), var(--muted-dark));
+    --accent: light-dark(var(--accent-light), var(--accent-dark));
+    --accent-2: light-dark(var(--accent-2-light), var(--accent-2-dark));
+    --accent-soft: light-dark(var(--accent-soft-light), var(--accent-soft-dark));
+    --success: light-dark(var(--success-light), var(--success-dark));
+    --warning: light-dark(var(--warning-light), var(--warning-dark));
+  }
+
+  /* Base declaration MUST stay `light dark`; the meta tag narrows it. */
+  color-scheme: light dark;
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  accent-color: var(--accent);
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+/* `dark:` variant that matches the *rendered* scheme (system or override). */
+@custom-variant dark {
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) & {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) & {
+      @slot;
+    }
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--background);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@utility container-page {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Faint dotted grid used behind the hero */
+@utility bg-dot-grid {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--foreground) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* Gradient text for small highlights */
+@utility text-gradient {
+  background-image: linear-gradient(110deg, var(--accent), var(--accent-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
