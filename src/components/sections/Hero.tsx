@@ -122,35 +122,16 @@ export function Hero() {
 
                 {/* Card Frame */}
                 <div className="relative rounded-3xl border border-border/90 bg-surface/80 backdrop-blur-md p-3 sm:p-3.5 shadow-2xl transition-all duration-300 group-hover:border-accent/40">
-                  <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-surface-muted">
+                  <div className="relative overflow-hidden rounded-2xl aspect-[4/5] bg-surface-muted">
                     <Image
                       src={personalData.profileImage}
                       alt={personalData.name}
-                      width={760}
-                      height={1013}
+                      width={680}
+                      height={850}
                       priority
                       sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 380px"
                       className="size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                     />
-                    {/* Subtle gradient vignette at bottom of image for contrast */}
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none"
-                    />
-                    {/* Overlay badge at bottom of photo */}
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-white/90 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 shadow-sm">
-                      <span className="flex items-center gap-1.5 font-medium">
-                        <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>Seeking Internship</span>
-                      </span>
-                      <span className="text-white/70">SLIIT</span>
-                    </div>
-                  </div>
-
-                  {/* Quick metadata strip underneath photo */}
-                  <div className="mt-3 px-2 py-1 flex items-center justify-between text-xs font-mono text-muted">
-                    <span>{"// software engineering"}</span>
-                    <span className="text-accent font-medium">Undergraduate</span>
                   </div>
                 </div>
               </div>
