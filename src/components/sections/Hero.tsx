@@ -6,6 +6,7 @@ import { socialLinks } from "@/data/socialLinks";
 import { Button } from "@/components/ui/Button";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons/BrandIcons";
 import { Reveal } from "@/components/ui/Reveal";
+import { TypewriterText } from "@/components/ui/TypewriterText";
 
 export function Hero() {
   return (
@@ -36,10 +37,16 @@ export function Hero() {
               </div>
             </Reveal>
 
-            {/* Main H1 */}
+            {/* Main H1 with real-time live typing effect on "Kaluarachchi" */}
             <Reveal delay={0.2}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-foreground text-balance">
-                {personalData.name}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-foreground">
+                <span className="sr-only">{personalData.name}</span>
+                <span aria-hidden="true" className="block sm:inline">
+                  Pamith Enuka{" "}
+                </span>
+                <span aria-hidden="true" className="block sm:inline text-gradient">
+                  <TypewriterText text="Kaluarachchi" />
+                </span>
               </h1>
             </Reveal>
 
