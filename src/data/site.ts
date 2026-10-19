@@ -19,6 +19,7 @@ export const siteConfig = {
    * button. The button is also hidden automatically if the file is missing.
    */
   resumePath: "/resume/Pamith-Enuka-Kaluarachchi-CV.pdf" as string | null,
+  year: 2026,
 } as const;
 
 export const navItems: NavItem[] = [

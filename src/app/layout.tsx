@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteConfig } from "@/data/site";
 import { COLOR_SCHEME_SYSTEM, colorSchemeInitScript } from "@/lib/theme";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -67,14 +69,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <meta name="color-scheme" content={COLOR_SCHEME_SYSTEM} suppressHydrationWarning />
         <script dangerouslySetInnerHTML={{ __html: colorSchemeInitScript }} />
       </head>
-      <body className="flex min-h-dvh flex-col">
+      <body className="flex min-h-dvh flex-col bg-background text-foreground">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:font-medium focus:text-background"
         >
           Skip to content
         </a>
-        {children}
+        <Navbar />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
