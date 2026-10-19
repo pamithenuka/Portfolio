@@ -10,6 +10,8 @@ export const personalData = {
   specialization: "Software Engineering",
   currentYear: "Year 3, Semester 1",
   careerGoal: "Full-Stack Software Engineer",
+  profileImage: "/images/profile/pamith-portrait.jpg",
+  avatarImage: "/images/profile/pamith-headshot.jpg",
   
   heroIntro:
     "Software Engineering undergraduate at SLIIT with a passion for designing and developing robust web and mobile applications. Focused on modern full-stack development, software architecture, and solving practical real-world problems.",
