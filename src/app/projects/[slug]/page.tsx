@@ -76,8 +76,28 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const githubLink = project.links.find((l) => l.kind === "github");
   const demoLink = project.links.find((l) => l.kind === "demo");
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": project.categories.includes("ai-ml") ? "CreativeWork" : "SoftwareSourceCode",
+    name: project.title,
+    headline: project.tagline,
+    description: project.summary,
+    author: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    programmingLanguage: project.technologies.map((t) => t.name),
+    codeRepository: githubLink?.href,
+    url: `${siteConfig.url}/projects/${project.slug}`,
+  };
+
   return (
     <article className="py-12 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container-page max-w-6xl">
         {/* Navigation Breadcrumb */}
         <div className="mb-8">
