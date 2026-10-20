@@ -4,6 +4,7 @@ import { siteConfig } from "@/data/site";
 import { COLOR_SCHEME_SYSTEM, colorSchemeInitScript } from "@/lib/theme";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CursorEffect } from "@/components/ui/CursorEffect";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <CursorEffect />
         <Navbar />
         <main id="main-content" className="flex-1">
           {children}
