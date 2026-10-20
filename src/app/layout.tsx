@@ -79,10 +79,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <CursorEffect />
         <Navbar />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" className="flex-1 relative z-10">
           {children}
         </main>
-        <Footer />
+        <div className="relative z-10">
+          <Footer />
+        </div>
       </body>
     </html>
   );
