@@ -137,7 +137,7 @@ export function Hero() {
                       height={850}
                       priority
                       sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 380px"
-                      className="size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                      className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                   </div>
                 </div>
