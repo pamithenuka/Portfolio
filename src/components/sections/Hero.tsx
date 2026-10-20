@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowRight, Download, Mail } from "lucide-react";
+import profilePhoto from "../../../public/images/profile/pamith-upper-chest-v2.jpg";
 import { personalData } from "@/data/personal";
 import { siteConfig } from "@/data/site";
 import { socialLinks } from "@/data/socialLinks";
@@ -131,10 +132,8 @@ export function Hero() {
                 <div className="relative rounded-3xl border border-border/90 bg-surface/80 backdrop-blur-md p-3 sm:p-3.5 shadow-2xl transition-all duration-300 group-hover:border-accent/40">
                   <div className="relative overflow-hidden rounded-2xl aspect-[4/5] bg-surface-muted">
                     <Image
-                      src={personalData.profileImage}
+                      src={profilePhoto}
                       alt={personalData.name}
-                      width={680}
-                      height={850}
                       priority
                       sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 380px"
                       className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
