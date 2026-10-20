@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowRight, Download, Mail } from "lucide-react";
-import profilePhoto from "../../../public/images/profile/pamith-upper-chest-v2.jpg";
+import profilePhoto from "../../../public/images/profile/pamith-hero-crop.jpg";
 import { personalData } from "@/data/personal";
 import { siteConfig } from "@/data/site";
 import { socialLinks } from "@/data/socialLinks";
@@ -130,7 +130,7 @@ export function Hero() {
 
                 {/* Card Frame */}
                 <div className="relative rounded-3xl border border-border/90 bg-surface/80 backdrop-blur-md p-3 sm:p-3.5 shadow-2xl transition-all duration-300 group-hover:border-accent/40">
-                  <div className="relative overflow-hidden rounded-2xl aspect-[4/5] bg-surface-muted">
+                  <div className="relative overflow-hidden rounded-2xl aspect-square bg-surface-muted">
                     <Image
                       src={profilePhoto}
                       alt={personalData.name}

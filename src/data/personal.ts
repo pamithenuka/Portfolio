@@ -10,7 +10,7 @@ export const personalData = {
   specialization: "Software Engineering",
   currentYear: "Year 3, Semester 1",
   careerGoal: "Full-Stack Software Engineer",
-  profileImage: "/images/profile/pamith-upper-chest-v2.jpg",
+  profileImage: "/images/profile/pamith-hero-crop.jpg",
   avatarImage: "/images/profile/pamith-headshot.jpg",
   
   heroIntro:
