@@ -189,6 +189,12 @@ export const projects: Project[] = [
     featured: true,
     published: true,
     order: 3,
+    thumbnail: {
+      src: "/images/projects/CarePulse.png",
+      alt: "CarePulse — Emergency Healthcare Triage & Operations interface",
+      width: 2934,
+      height: 1500,
+    },
     technologies: [
       { name: "ASP.NET Core", note: "Enterprise backend API framework" },
       { name: "Entity Framework Core", note: "ORM & relational database migrations" },
