@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ExternalLink, Code2, Layers, CheckCircle2 } from "lucide-react";
 import type { Project } from "@/types";
 import { Badge } from "@/components/ui/Badge";
@@ -26,11 +27,14 @@ export function FeaturedProjectCard({ project, reverse = false }: FeaturedProjec
           reverse ? "lg:flex-row-reverse" : ""
         }`}
       >
-        {/* Visual Schematic Panel */}
+        {/* Visual Showcase Panel */}
         <div className={`lg:col-span-5 ${reverse ? "lg:order-2" : "lg:order-1"}`}>
-          <div className="rounded-2xl border border-border bg-surface-muted/60 p-6 flex flex-col justify-between min-h-[260px] relative overflow-hidden group">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="group block rounded-2xl border border-border bg-surface-muted/60 p-5 sm:p-6 flex flex-col justify-between min-h-[260px] relative overflow-hidden transition-all duration-300 hover:border-accent/40 hover:bg-surface-muted/80 focus-visible:outline-accent"
+          >
             {/* Top info */}
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 mb-3">
               <span className="font-mono text-xs text-accent uppercase tracking-wider font-semibold">
                 {project.context === "academic" ? "Academic Project" : "Personal Project"}
               </span>
@@ -50,29 +54,41 @@ export function FeaturedProjectCard({ project, reverse = false }: FeaturedProjec
               </span>
             </div>
 
-            {/* Center Visual: Code & Architecture Schematic */}
-            <div className="my-6 py-4 flex flex-col items-center justify-center text-center">
-              <div className="size-14 rounded-2xl bg-surface border border-border flex items-center justify-center text-accent mb-3 shadow-xs">
-                <Code2 className="size-7" />
+            {/* Center Visual: Real project thumbnail if available, or schematic */}
+            {project.thumbnail ? (
+              <div className="my-2 relative overflow-hidden rounded-xl border border-border/80 bg-surface shadow-xs aspect-[16/10]">
+                <Image
+                  src={project.thumbnail.src}
+                  alt={project.thumbnail.alt || project.title}
+                  width={project.thumbnail.width || 1242}
+                  height={project.thumbnail.height || 587}
+                  className="size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
               </div>
-              <span className="font-mono text-xs text-foreground font-semibold">
-                {project.shortTitle || project.title}
-              </span>
-              <span className="font-mono text-[11px] text-muted mt-1">
-                {project.categories.map((c) => c.toUpperCase()).join(" • ")}
-              </span>
-            </div>
+            ) : (
+              <div className="my-6 py-4 flex flex-col items-center justify-center text-center">
+                <div className="size-14 rounded-2xl bg-surface border border-border flex items-center justify-center text-accent mb-3 shadow-xs">
+                  <Code2 className="size-7" />
+                </div>
+                <span className="font-mono text-xs text-foreground font-semibold">
+                  {project.shortTitle || project.title}
+                </span>
+                <span className="font-mono text-[11px] text-muted mt-1">
+                  {project.categories.map((c) => c.toUpperCase()).join(" • ")}
+                </span>
+              </div>
+            )}
 
             {/* Bottom concepts pill */}
             {project.conceptsHighlighted && project.conceptsHighlighted.length > 0 && (
-              <div className="pt-3 border-t border-border/80 flex items-center gap-2 text-[11px] font-mono text-muted">
+              <div className="mt-2 pt-3 border-t border-border/80 flex items-center gap-2 text-[11px] font-mono text-muted">
                 <Layers className="size-3 text-accent shrink-0" />
                 <span className="truncate">
                   {project.conceptsHighlighted.slice(0, 3).join(", ")}
                 </span>
               </div>
             )}
-          </div>
+          </Link>
         </div>
 
         {/* Details & Contribution Column */}

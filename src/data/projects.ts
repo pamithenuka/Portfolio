@@ -18,6 +18,12 @@ export const projects: Project[] = [
     published: true,
     order: 1,
     period: "Academic Project • Year 2",
+    thumbnail: {
+      src: "/images/projects/RentEase-thumbnail.jpg",
+      alt: "RentEase — Rental House Management System web application interface",
+      width: 1242,
+      height: 587,
+    },
     technologies: [
       { name: "React", note: "Web administration portal" },
       { name: "React Native", note: "Mobile tenant application" },

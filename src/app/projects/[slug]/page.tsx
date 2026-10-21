@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -179,6 +180,22 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             )}
           </div>
         </header>
+
+        {/* Project Visual Showcase */}
+        {project.thumbnail && (
+          <div className="mt-8 rounded-3xl border border-border bg-surface-muted/60 p-2 sm:p-3 overflow-hidden shadow-lg">
+            <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden bg-surface">
+              <Image
+                src={project.thumbnail.src}
+                alt={project.thumbnail.alt || project.title}
+                fill
+                priority
+                className="object-cover object-top"
+                sizes="(max-width: 1200px) 100vw, 1200px"
+              />
+            </div>
+          </div>
+        )}
 
         {/* Content Layout: 8 cols main, 4 cols sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12 items-start">
