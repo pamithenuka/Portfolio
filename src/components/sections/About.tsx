@@ -1,4 +1,4 @@
-import { GraduationCap, Target, Sparkles } from "lucide-react";
+import { GraduationCap, Sparkles } from "lucide-react";
 import { personalData } from "@/data/personal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
@@ -76,13 +76,6 @@ export function About() {
                     </div>
                   ))}
                 </dl>
-
-                <div className="mt-6 pt-6 border-t border-border flex items-center gap-3 text-xs text-muted">
-                  <Target className="size-4 text-accent shrink-0" />
-                  <span>
-                    Seeking a 6-month Software Engineering / Full-Stack internship to apply skills in real-world environments.
-                  </span>
-                </div>
               </div>
             </Reveal>
           </div>
