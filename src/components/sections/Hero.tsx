@@ -30,16 +30,8 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-14 items-center">
           {/* Left Column: Introduction & Actions */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
-            {/* Status Badge */}
-            <Reveal delay={0.1}>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-surface/80 backdrop-blur-xs text-xs font-mono text-muted mb-6 shadow-xs">
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{personalData.status}</span>
-              </div>
-            </Reveal>
-
             {/* Main H1 with real-time live typing effect on "Kaluarachchi" */}
-            <Reveal delay={0.2}>
+            <Reveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-foreground">
                 <span className="sr-only">{personalData.name}</span>
                 <span aria-hidden="true" className="block">
