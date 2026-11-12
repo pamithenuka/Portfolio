@@ -183,7 +183,7 @@ export const projects: Project[] = [
       "CarePulse is an academic group software engineering project aimed at streamlining emergency department triage and patient routing. Incorporating an agentic AI architecture alongside robust enterprise services, the system models patient prioritization, medical staff coordination, and clinical operations across dedicated web and mobile interfaces.",
     categories: ["web", "mobile", "ai-ml"],
     context: "academic",
-    status: "in-development",
+    status: "completed",
     team: "group",
     role: "Full-Stack & Subsystem Contributor",
     featured: true,
