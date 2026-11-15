@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
-import { LazyMotion, domAnimation, m, MotionConfig, useReducedMotion } from "motion/react";
+import { ReactNode, useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface RevealProps {
@@ -16,28 +16,31 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  duration = 0.5,
-  y = 20
+  duration = 0.4,
+  y = 15,
 }: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // SSR fallback: render fully visible content so elements never start invisible
+  // if client-side hydration or dev HMR is blocked or delayed.
+  if (!mounted || shouldReduceMotion) {
+    return <div className={cn(className)}>{children}</div>;
   }
 
   return (
-    <LazyMotion features={domAnimation}>
-      <MotionConfig reducedMotion="user">
-        <m.div
-          initial={{ opacity: 0, y }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className={cn(className)}
-        >
-          {children}
-        </m.div>
-      </MotionConfig>
-    </LazyMotion>
+    <motion.div
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: "some" }}
+      transition={{ duration, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={cn(className)}
+    >
+      {children}
+    </motion.div>
   );
 }
