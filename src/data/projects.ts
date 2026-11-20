@@ -185,7 +185,7 @@ export const projects: Project[] = [
     context: "academic",
     status: "completed",
     team: "group",
-    role: "Full-Stack & Subsystem Contributor",
+    role: "Team Leader & Lead Systems Engineer (Field Nurse Dispatch, Telemetry & AI Safety)",
     featured: true,
     published: true,
     order: 3,
@@ -226,20 +226,31 @@ export const projects: Project[] = [
     ],
     contribution: {
       summary:
-        "Contributed to backend API architecture, database migrations, and client-side integration for verified subsystem components.",
+        "As Team Lead, I initialized and architected the 3-tier monorepo (ASP.NET Core Web API, React Web Admin, Flutter Mobile App) and established the shared engineering standards, CI/CD pipeline, and database migrations. Individually, I owned and delivered the Emergency Nurse Dispatch, Real-Time GPS Telemetry, and AI Safety Validation Subsystem end-to-end across backend, mobile, web, and AI tiers.",
       responsibilities: [
-        "Collaborated on designing PostgreSQL entity relational schemas using Entity Framework Core.",
-        "Implemented RESTful endpoints in ASP.NET Core for clinical data exchange and authenticated access.",
-        "Integrated client components with backend services following structured API schemas.",
-        "Participated in architecture design sessions for the multi-agent AI triage subsystem."
+        "Core Foundation & Monorepo Architecture: Scaffolded the entire CarePulse repository architecture (.NET 8, React, Flutter) and built the GitHub Actions CI/CD pipeline for automated builds and test execution. Configured centralized ASP.NET Core REST API with Entity Framework Core, PostgreSQL (Neon Cloud), JWT Bearer authentication, and global exception handling middleware.",
+        "Field Nurse Dispatch & Telemetry Engine (Backend): Architected the dispatch state machine lifecycle (Assigned → EnRoute → ArrivedOnSite → Completed/Escalated). Modeled schemas for NurseProfiles, DispatchTickets, RouteLogs, and OnSiteVitalsRecords. Implemented concurrency safeguards preventing nurse double-booking with strict single-dispatch exclusivity.",
+        "Agentic AI Safety & Validation Agent (Gemini & Semantic Kernel): Developed Agent 4 (Validation & Safety Agent) using Google Gemini and Microsoft Semantic Kernel to enforce deterministic healthcare guardrails. Programmed automatic safety triggers for high-risk triage (Severity > 8.5 or ETA > 30 mins), enforcing a mandatory Doctor-in-the-Loop approval gate (NEEDS_DOCTOR_APPROVAL) before emergency dispatch. Enforced prompt-injection defense with read-only database contexts (ReadOnlyCarePulseDbContext).",
+        "Field Nurse Mobile Application (Flutter): Built the active dispatch navigation interface using flutter_map and real-time device GPS telemetry. Developed the On-Site Vitals Entry screen enabling field nurses to submit critical clinical readings (heart rate, blood pressure, SpO2, temperature, consciousness) directly to the central EHR. Implemented robust session handling for token expirations (HTTP 401) and background telemetry sync.",
+        "Emergency Control Center (React Web Admin): Built the real-time Emergency Control Center map dashboard displaying live nurse coordinates, routes, and active dispatch tickets. Created the Nurse Visits Tab on the patient detail view, allowing doctors and admins to review historical and active field nurse interventions."
       ],
-      areas: ["backend", "frontend", "database"]
+      areas: ["backend", "frontend", "mobile", "database", "ml", "testing"]
     },
     challenges: [
       {
-        challenge: "Managing clean architecture across diverse client frameworks (React and Flutter) backed by .NET.",
+        challenge: "Race Conditions in Concurrent Nurse Dispatch — Rapid simultaneous triage assignments risked double-booking a single field nurse for multiple critical emergencies.",
         solution:
-          "Enforced strict OpenAPI/Swagger data contracts and standardized HTTP status responses across all controllers."
+          "Implemented transactional database locks and concurrency validation in DispatchController, verified through multi-threaded xUnit tests to ensure an active nurse is locked until an on-site visit is formally completed."
+      },
+      {
+        challenge: "Stale GPS Telemetry Streams in Mobile Navigation — Rapidly pausing and restarting GPS tracking in Flutter created orphaned stream callbacks, causing older location updates to overwrite newer telemetry coordinates.",
+        solution:
+          "Re-architected the tracking timer lifecycle with explicit stream teardowns and session boundary checks (S4-DEF-01), backed by automated regression tests in dispatch_tracking_test.dart."
+      },
+      {
+        challenge: "Reliable Testing of Non-Deterministic AI Safety Rules — Testing clinical safety rules against live LLMs introduces non-determinism, network latency, and test brittleness.",
+        solution:
+          "Designed parameterized Golden Test Suites covering severity/ETA boundary conditions and AI configuration fallbacks without requiring live Gemini API calls."
       }
     ],
     learnings: [

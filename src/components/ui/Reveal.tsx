@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,8 @@ interface RevealProps {
   y?: number;
 }
 
+const emptySubscribe = () => () => {};
+
 export function Reveal({
   children,
   className,
@@ -20,15 +22,15 @@ export function Reveal({
   y = 15,
 }: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   // SSR fallback: render fully visible content so elements never start invisible
   // if client-side hydration or dev HMR is blocked or delayed.
-  if (!mounted || shouldReduceMotion) {
+  if (!isMounted || shouldReduceMotion) {
     return <div className={cn(className)}>{children}</div>;
   }
 
